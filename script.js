@@ -16,7 +16,7 @@ function getComputerChoice() {
     }
 }
 
-console.log("Computers Choice: " + getComputerChoice()); // Call the function and print the result
+// console.log("Computers Choice: " + getComputerChoice()); // Call the function and print the result
 
 // Step 2:
 // Your game will be played by a human player. You will write a function that takes the user choice and returns it.
@@ -36,5 +36,53 @@ function getHumanChoice() {
     }
 }
 
-console.log("Humans Choice: " + getHumanChoice()); // Call the function and print the result
+// console.log("Humans Choice: " + getHumanChoice()); // Call the function and print the result
+
+// Step 4: Declare the players score variables
+let humanScore = 0;
+let computerScore = 0;
+
+
+// Step 5: Write the logic to play a single round
+function playRound(humanChoice , computerChoice){
+    if (humanChoice === "Rock" && computerChoice === "Scissors"){
+        humanScore++;
+        return console.log("You win! Rock beats Scissors");
+    } 
+    else if (humanChoice === "Rock" && computerChoice === "Paper"){
+        computerScore++;
+        return console.log("You lose! Paper beats Rock");
+    }
+    else if (humanChoice === "Rock" && computerChoice === "Rock"){
+        return console.log("You Tie! Go Again!");
+    }
+    else if (humanChoice === "Paper" && computerChoice === "Rock"){
+        humanScore++;
+        return console.log("You win! Paper beats Rock");
+    }
+    else if (humanChoice === "Paper" && computerChoice === "Scissors"){
+        computerScore++;
+        return console.log("You lose! Scissors beats Paper");
+    }
+    else if (humanChoice === "Paper" && computerChoice === "Paper"){
+        return console.log("You Tie! Go Again!");
+    }
+    else if (humanChoice === "Scissors" && computerChoice === "Paper"){
+        humanScore++;
+        return console.log("You win! Scissors beats Paper");
+    }
+    else if (humanChoice === "Scissors" && computerChoice === "Rock"){
+        computerScore++;
+        return console.log("You lose! Rock beats Scissors");
+    }
+    else if (humanChoice === "Scissors" && computerChoice === "Scissors"){
+        return console.log("You Tie! Go Again!");
+    }
+}
+
+const humanSelection = getHumanChoice();
+const computerSelection = getComputerChoice();
+
+playRound(humanSelection, computerSelection)
+console.log("Human Score: " + humanScore + " Computer Score: " + computerScore);
 
