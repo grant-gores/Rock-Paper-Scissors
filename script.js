@@ -1,4 +1,3 @@
-// Step 1:
 // Game will be played out against a computer, write a function that randomly returns “rock”, “paper” or “scissors”.
 function getRandomInt() {
     return Math.floor(Math.random() * 3);
@@ -16,89 +15,81 @@ function getComputerChoice() {
     }
 }
 
-// console.log("Computers Choice: " + getComputerChoice()); // Call the function and print the result
-
-// Step 2:
-// Your game will be played by a human player. You will write a function that takes the user choice and returns it.
-function promptChoice(){
-     return parseInt(prompt("Enter '1' for Rock, '2' for Paper, or '3' for Scissors: "));
-}
-
-function getHumanChoice() {
-    let getHumanChoice = promptChoice(); // Get prompted choice
-
-    if (getHumanChoice === 1) {
-        return "Rock";
-    } else if (getHumanChoice === 2) {
-        return "Paper";
-    } else {
-        return "Scissors";
-    }
-}
-
-// console.log("Humans Choice: " + getHumanChoice()); // Call the function and print the result
-
-// Step 4: Declare the players score variables
+// Declare the players score variables
 let humanScore = 0;
 let computerScore = 0;
 
+const gameMessage = document.querySelector("div");
+const humanResult = document.getElementById("human-score");
+const computerResult = document.getElementById("computer-score");
 
-// Step 5: Write the logic to play a single round
-function playRound(humanChoice , computerChoice){
-    if (humanChoice === "Rock" && computerChoice === "Scissors"){
-        humanScore++;
-        return console.log("You win! Rock beats Scissors");
-    } 
-    else if (humanChoice === "Rock" && computerChoice === "Paper"){
-        computerScore++;
-        return console.log("You lose! Paper beats Rock");
+// Write the logic to play a single round
+function playRound(getHumanChoice , computerChoice){
+    if(humanScore === 5) {
+        return gameMessage.innerText ="You Win! Reload Page to Play Again!";
     }
-    else if (humanChoice === "Rock" && computerChoice === "Rock"){
-        return console.log("You Tie! Rock can't beat Rock!");
-    }
-    else if (humanChoice === "Paper" && computerChoice === "Rock"){
-        humanScore++;
-        return console.log("You win! Paper beats Rock");
-    }
-    else if (humanChoice === "Paper" && computerChoice === "Scissors"){
-        computerScore++;
-        return console.log("You lose! Scissors beats Paper");
-    }
-    else if (humanChoice === "Paper" && computerChoice === "Paper"){
-        return console.log("You Tie! Paper can't beat Paper!");
-    }
-    else if (humanChoice === "Scissors" && computerChoice === "Paper"){
-        humanScore++;
-        return console.log("You win! Scissors beats Paper");
-    }
-    else if (humanChoice === "Scissors" && computerChoice === "Rock"){
-        computerScore++;
-        return console.log("You lose! Rock beats Scissors");
-    }
-    else if (humanChoice === "Scissors" && computerChoice === "Scissors"){
-        return console.log("You Tie! Scissors can't beat Scissors!");
-    }
-}
-
-// Write the logic to play the entire game
-function playGame(){
-    for (let i = 0; i < 5; i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
-        console.log("Human Score: " + humanScore + " Computer Score: " + computerScore);
-      }
-    if(humanScore < computerScore){
-        console.log("You Lose, The Computer Wins!");
-    }
-    else if(humanScore > computerScore){
-        console.log("You Win!");
+    else if(computerScore === 5){
+        return gameMessage.innerText ="You Lose! Reload Page to Play Again!";
     }
     else{
-        console.log("You Tied!, play again");
+        if (getHumanChoice === "Rock" && computerChoice === "Scissors"){
+            humanScore++;
+            return gameMessage.innerText = "You win! Rock beats Scissors";
+        } 
+        else if (getHumanChoice === "Rock" && computerChoice === "Paper"){
+            computerScore++;
+            return gameMessage.innerText ="You lose! Paper beats Rock";
+        }
+        else if (getHumanChoice === "Rock" && computerChoice === "Rock"){
+            return gameMessage.innerText ="You Tie! Rock can't beat Rock!";
+        }
+        else if (getHumanChoice === "Paper" && computerChoice === "Rock"){
+            humanScore++;
+            return gameMessage.innerText ="You win! Paper beats Rock";
+        }
+        else if (getHumanChoice === "Paper" && computerChoice === "Scissors"){
+            computerScore++;
+            return gameMessage.innerText ="You lose! Scissors beats Paper";
+        }
+        else if (getHumanChoice === "Paper" && computerChoice === "Paper"){
+            return gameMessage.innerText ="You Tie! Paper can't beat Paper!";
+        }
+        else if (getHumanChoice === "Scissors" && computerChoice === "Paper"){
+            humanScore++;
+            return gameMessage.innerText ="You win! Scissors beats Paper";
+        }
+        else if (getHumanChoice === "Scissors" && computerChoice === "Rock"){
+            computerScore++;
+            return gameMessage.innerText ="You lose! Rock beats Scissors";
+        }
+        else if (getHumanChoice === "Scissors" && computerChoice === "Scissors"){
+            return gameMessage.innerText ="You Tie! Scissors can't beat Scissors!";
+        }
     }
 }
 
-// Play the Game
-playGame();
+// Access Rock, Paper and Scissors buttons
+const buttons = document.querySelectorAll("button");
+
+// we use the .forEach method to iterate through each button
+buttons.forEach((button) => {
+  // and for each one we add a 'click' listener
+  button.addEventListener("click", () => {
+    let getHumanChoice = button.innerText;
+    let computerChoice = getComputerChoice(); // Get the computer's choice
+    playRound(getHumanChoice, computerChoice); // Pass both arguments
+    humanResult.innerText = humanScore;
+    computerResult.innerText = computerScore;
+    if(humanScore === 5) {
+        return gameMessage.innerText ="You Win! Reload Page to Play Again!";
+    }
+    else if(computerScore === 5){
+        return gameMessage.innerText ="You Lose! Reload Page to Play Again!";
+    }
+    else{
+        return;
+    }
+});
+});
+
 
